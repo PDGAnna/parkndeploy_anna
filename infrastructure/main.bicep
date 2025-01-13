@@ -48,3 +48,5 @@ module staticWebApp 'modules/staticWebApp.bicep' = {
 }
 
 output staticWebAppName string = staticWebApp.outputs.swaName // Export StaticWebAppName in order to deploy the Frontend late
+
+
