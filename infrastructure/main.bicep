@@ -7,6 +7,9 @@ param project string
 // Here we'll add an identifier to create a unique name for the App Service Plan, for example your trigram, so that everyone could deploy his own parkndeploy instance
 param identifier string
 
+param swaLocation string // Static Web App locations are limited, we need to add another variable
+
+
 // Create the AppServicePlan through the AppServicePlan module
 module appServicePlan 'modules/appServicePlan.bicep' = {
   name: 'appServicePlan'
@@ -28,15 +31,6 @@ module appService 'modules/appService.bicep' = {
   }
 }
 
-// Export App Service Name
-output appServiceName string = appService.outputs.appServiceName
-
-
-param swaLocation string // Static Web App locations are limited, we need to add another variable
-
-// App Service & App Service Plan creation
-// ...
-
 // Create the Static Web App through the StaticWebApp module
 module staticWebApp 'modules/staticWebApp.bicep' = {
   name: 'staticWebApp'
@@ -47,6 +41,7 @@ module staticWebApp 'modules/staticWebApp.bicep' = {
   }
 }
 
+output appServiceName string = appService.outputs.appServiceName // Export App Service Name
 output staticWebAppName string = staticWebApp.outputs.swaName // Export StaticWebAppName in order to deploy the Frontend late
 
 
